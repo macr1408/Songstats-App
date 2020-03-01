@@ -1,0 +1,20 @@
+{
+    "name": "songstatsApp",
+    "version": "1.0.0",
+    "description": "Songstats",
+    "author": "Marcos",
+    "private": true,
+    "scripts": {
+        "dev": "nuxt --port 80",
+        "build": "nuxt build",
+        "start": "nuxt start",
+        "generate": "nuxt generate"
+    },
+    "dependencies": {
+        "nuxt": "^2.0.0",
+        "@nuxtjs/axios": "^5.3.6"
+    },
+    "devDependencies": {
+        "@nuxtjs/tailwindcss": "^1.0.0"
+    }
+}
