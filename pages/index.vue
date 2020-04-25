@@ -4,14 +4,11 @@
       <div class="text-center">
         <Logo class="block"></Logo>
         <a
-          class="bg-green-spotify text-white font-bold mt-6 px-8 py-2 rounded-full inline-block"
+          class="bg-green-spotify text-white font-bold mt-6 px-8 py-2 rounded-full inline-block cursor-pointer"
           :class="this.isLoading ? 'spinner' : ''"
           href="http://localhost:8000/login"
-        >Iniciar sesión</a>
-        <h2
-          class="text-red-500 mt-2"
-          v-if="this.loginError"
-        >Hubo un error, por favor intenta nuevamente</h2>
+        >Login</a>
+        <h2 class="text-red-500 mt-2" v-if="this.loginError">There was an error, please try again</h2>
       </div>
     </div>
   </div>
@@ -20,6 +17,7 @@
 <script>
 import Logo from "~/components/Logo.vue";
 const axios = require("axios");
+const songstatsSdk = require("~/plugins/songstats-sdk");
 
 export default {
   data() {
@@ -34,11 +32,13 @@ export default {
   methods: {
     login: function(code) {
       this.isLoading = true;
-      axios
-        .post("http://localhost:8000/api/v1/auth", { code })
+      songstatsSdk
+        .login(code)
         .then(response => {
           this.loginError = false;
           this.isLoading = false;
+          this.$store.commit("updateAuthToken", response.data);
+          this.$router.push("now");
         })
         .catch(error => {
           this.loginError = true;
